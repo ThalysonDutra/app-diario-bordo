@@ -9,6 +9,9 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Diário de Bordo',
       theme: Theme.of(context).copyWith(
+          textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Caecilia LT Std'),
+          primaryTextTheme: Theme.of(context).textTheme.apply(fontFamily: 'Caecilia LT Std'),
+          accentTextTheme: Theme.of(context).textTheme.apply(fontFamily: 'Caecilia LT Std'),
           primaryColor: Color.fromRGBO(0, 109, 197, 1)
       ),
       home: LoginPage(),
