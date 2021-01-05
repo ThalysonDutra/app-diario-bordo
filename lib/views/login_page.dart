@@ -1,3 +1,4 @@
+import 'package:appdiario/controllers/homeController.dart';
 import 'package:appdiario/controllers/loginController.dart';
 import 'package:appdiario/utils/alertWidget.dart';
 import 'package:appdiario/utils/dialogWidget.dart';
@@ -130,8 +131,7 @@ class _LoginPageState extends State<LoginPage>
         textAlign: TextAlign.center,
         style: TextStyle(
             color: Colors.white,
-            fontSize: 16.0,
-            fontFamily: "WorkSansSemiBold"),
+            fontSize: 16.0),
       ),
       backgroundColor: Colors.blue,
       duration: Duration(seconds: 3),
@@ -271,7 +271,6 @@ class _LoginPageState extends State<LoginPage>
                                   ),
                                   hintText: "Senha",
                                   hintStyle: TextStyle(
-                                      fontFamily: "WorkSansSemiBold",
                                       fontSize: 17.0),
                                   suffixIcon: GestureDetector(
                                     onTap: _toggleLogin,
@@ -314,8 +313,7 @@ class _LoginPageState extends State<LoginPage>
                         "ENTRAR",
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20.0,
-                            fontFamily: "WorkSansBold"),
+                            fontSize: 20.0),
                       ),
                     ),
                     onPressed: () async{
@@ -351,8 +349,7 @@ class _LoginPageState extends State<LoginPage>
                   style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: Color.fromRGBO(0, 109, 197, 1),
-                      fontSize: 16.0,
-                      fontFamily: "WorkSansMedium"),
+                      fontSize: 16.0),
                 )),
           ),
         ],

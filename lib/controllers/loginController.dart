@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:appdiario/controllers/homeController.dart';
 import 'package:appdiario/utils/userData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -49,6 +50,7 @@ class LoginController {
       return 0;
     }
 
+    await HomeController.instance.myTasks();
     return code;
   }
 

@@ -1,3 +1,4 @@
+import 'package:appdiario/controllers/homeController.dart';
 import 'package:appdiario/controllers/taskController.dart';
 import 'package:appdiario/utils/datePicker.dart';
 import 'package:appdiario/utils/dialogWidget.dart';
@@ -35,7 +36,7 @@ class _NewTaskState extends State<NewTask> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop:(){},
+        onWillPop:_onBackPressed,
         child: Scaffold(
             appBar: AppBar(
               title: Text("Nova Atividade", style: TextStyle(fontFamily: 'Caecilia', color: Colors.white),),
@@ -99,7 +100,6 @@ class _NewTaskState extends State<NewTask> {
                                 hintText: "Título",
                                 contentPadding: EdgeInsets.fromLTRB(10.0,0,0,0),
                                 hintStyle: TextStyle(
-                                    fontFamily: "WorkSansSemiBold",
                                     fontSize: 17.0, color: Colors.grey),
                               ),
                             ),
@@ -127,8 +127,7 @@ class _NewTaskState extends State<NewTask> {
                                       hintText: "Definir Frequência",
                                       contentPadding: EdgeInsets.fromLTRB(10.0,0,0,0),
                                       hintStyle: TextStyle(
-                                          fontFamily: "WorkSansSemiBold",
-                                          fontSize: 17.0, color: Colors.grey),
+                                      fontSize: 17.0, color: Colors.grey),
                                     ),
                                     value: _frequency,
                                     onChanged: (newValue) {
@@ -173,7 +172,6 @@ class _NewTaskState extends State<NewTask> {
                                   controller: durationController,
                                   keyboardType: TextInputType.number,
                                   style: TextStyle(
-                                    fontFamily: "WorkSansSemiBold",
                                     fontSize: 16.0,
                                     color: Colors.black,
                                   ),
@@ -194,7 +192,6 @@ class _NewTaskState extends State<NewTask> {
                                     hintText: "Duração (em horas)",
                                     contentPadding: EdgeInsets.fromLTRB(10.0,0,0,0),
                                     hintStyle: TextStyle(
-                                        fontFamily: "WorkSansSemiBold",
                                         fontSize: 17.0, color: Colors.grey),
                                   ),
                                 ),
@@ -247,7 +244,6 @@ class _NewTaskState extends State<NewTask> {
                                     hintText: "Descrição",
                                     contentPadding: EdgeInsets.fromLTRB(10.0,0,0,0),
                                     hintStyle: TextStyle(
-                                        fontFamily: "WorkSansSemiBold",
                                         fontSize: 17.0, color: Colors.grey),
                                   ),
                                 ),
@@ -274,21 +270,31 @@ class _NewTaskState extends State<NewTask> {
                                         data['deadline'] = deadlineController.text;
                                         data['idUser'] = UserData().id;
 
-                                        print(data.toString());
+                                        //print(data.toString());
 
                                         Dialogs.showLoadingDialog(
                                             context, TaskController.instance.keyLoader,
                                             "Salvando...");
                                         int code = await TaskController.instance.createTask(data);
-                                        Navigator.of(context, rootNavigator: true).pop();
+
                                         if (code == 201) {
+                                          titleController.clear();
+                                          descriptionController.clear();
+                                          durationController.clear();
+                                          deadlineController.clear();
+                                          dateController.clear();
+                                          frequencyController.clear();
+
+                                          await HomeController.instance.myTasks();
+                                          Navigator.of(context, rootNavigator: true).pop();
                                           Navigator.of(context).pushReplacement(MaterialPageRoute(
                                               builder: (context) => HomePage()));
-                                        } else if (code == 500) {
-                                          TemporaryDialog(context,
-                                              "Erro ao realizar o login. \nE-mail ou senha incorretos.");
                                         } else {
-
+                                          Navigator.of(
+                                              context, rootNavigator: true)
+                                              .pop();
+                                          TemporaryDialog(context,
+                                              "Erro ao cadastrar atividade. \nVerifique seus  dados.");
                                         }
                                       }
 
@@ -301,8 +307,7 @@ class _NewTaskState extends State<NewTask> {
                                         "ENTRAR",
                                         style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 20.0,
-                                            fontFamily: "WorkSansBold"),
+                                            fontSize: 20.0),
                                       ),),
                                    ),
                           )

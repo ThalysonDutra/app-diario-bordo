@@ -38,8 +38,14 @@ class TaskController {
     return code;
   }
 
-  Future<List> getTasks(String id){
+  Future<int> deleteTask(String id)async{
+    var answ = await http.delete("${URL_API}/tasks/id/$id", headers: {
+      "Content-Type": "application/json",
+    });
+
+    print(answ.statusCode);
+
+    return answ.statusCode;
 
   }
-
 }

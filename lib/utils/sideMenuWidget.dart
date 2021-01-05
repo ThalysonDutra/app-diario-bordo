@@ -1,7 +1,9 @@
+import 'package:appdiario/controllers/homeController.dart';
 import 'package:appdiario/utils/alertWidget.dart';
 import 'package:appdiario/utils/userData.dart';
 import 'package:appdiario/views/login_page.dart';
 import 'package:flutter/material.dart';
+
 
 Widget SideMenuWidget(BuildContext context){
   return Column(
@@ -11,8 +13,8 @@ Widget SideMenuWidget(BuildContext context){
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("${UserData().name}"),
-              accountEmail: Text("${UserData().email}"),
+              accountName: Text("${UserData().name}", style: TextStyle(color: Colors.white),),
+              accountEmail: Text("${UserData().email}",style: TextStyle(color: Colors.white)),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
                     ? Color.fromRGBO(0, 99, 170, 1)
@@ -23,24 +25,7 @@ Widget SideMenuWidget(BuildContext context){
                 ),
               ),
             ),
-            ListTile(
-              leading: Icon(Icons.date_range),
-              title: Text('Dia'),
-              onTap: () {
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.date_range),
-              title: Text('Semana'),
-              onTap: () {
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.date_range),
-              title: Text('Mês'),
-              onTap: () {
-              },
-            ),
+
             ListTile(
               leading: Icon(Icons.info),
               title: Text('Sobre'),
